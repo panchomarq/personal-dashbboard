@@ -1,9 +1,28 @@
 import { Revenue } from './definitions';
 
+
 export const formatCurrency = (amount: number) => {
-  return (amount / 100).toLocaleString('en-US', {
+  return amount.toLocaleString('es-US', {
     style: 'currency',
     currency: 'USD',
+  });
+};
+
+export const formatCurrencyARS = (amount: number) => {
+  return amount.toLocaleString('es-AR', {
+    style: 'currency',
+    currency: 'ARS',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+};
+
+export const formatCurrencyUSD = (amount: number) => {
+  return amount.toLocaleString('es-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
   });
 };
 

@@ -1,30 +1,28 @@
 const { db } = require('@vercel/postgres');
-const { expenses } = require('../app/lib/expenses.js');
+const { incomes } = require('../app/lib/incomes.js');
 
 async function seedExpenses(client) {
   try {
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
 
     const createTable = await client.sql`
-    CREATE TABLE IF NOT EXISTS expenses (
+    CREATE TABLE IF NOT EXISTS incomes (
     name TEXT NOT NULL,
     date DATE NOT NULL,
     category TEXT NOT NULL,
-    type TEXT NOT NULL,
-    quoteStatus VARCHAR(255) NOT NULL,
-    quoteNumber VARCHAR(255) NOT NULL,
-    ars VARCHAR(255) NOT NULL,
-    exchangeRate VARCHAR(255) NOT NULL,
-    usd VARCHAR(255) NOT NULL
+    currency TEXT NOT NULL,
+    ars DECIMAL(10,2) NOT NULL,
+    tasa INT NOT NULL,
+    usd DECIMAL(10,2) NOT NULL
     );
     `;
 
     const insertedExpenses = await Promise.all(
-      expenses.map(async (expense, index) => {
+      incomes.map(async (expense, index) => {
         await client.sql`
-        INSERT INTO expenses (name, date, category, type, quoteStatus, quoteNumber, ars, exchangeRate, usd)
-        VALUES (${expense.nombre}, ${expense.date}, ${expense.categoria}, ${expense.type}, ${expense.quoteStatus}, ${expense.quoteNumber}, ${expense.ars}, ${expense.tasa}, ${expense.usd})`;
-        console.log(`Una más: ${index +1}`)
+        INSERT INTO incomes (name, date, category, currency, ars, tasa, usd)
+        VALUES (${expense.name}, ${expense.date}, ${expense.category}, ${expense.currency}, ${expense.ars}, ${expense.tasa}, ${expense.usd})`;
+        console.log(`Una más: ${index + 1}`);
       }),
     );
 
@@ -32,7 +30,7 @@ async function seedExpenses(client) {
 
     return {
       createTable,
-      expenses: insertedExpenses,
+      incomes: insertedExpenses,
     };
   } catch (error) {
     console.log('Error sending expenses', error);

@@ -1,7 +1,7 @@
 import pandas as pd
 
 # Leer el archivo Excel
-df = pd.read_excel('experiment.xlsx')
+df = pd.read_excel('experiment_ingresos.xlsx')
 
 # Convertir el DataFrame a un diccionario de Python
 data_dict = df.to_dict(orient='records')

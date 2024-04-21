@@ -39,6 +39,32 @@ export type LatestInvoice = {
   amount: string;
 };
 
+export type LatestOutcome = {
+  name: string;
+  date: Date;
+  usd: number;
+  ars: number;
+  category: string;
+}
+
+export type LatestIncome = {
+  name: string;
+  date: Date;
+  usd: number;
+  ars: number;
+  category: string;
+}
+
+export interface CurrencyAmounts {
+  ars: string; 
+  usd: string;
+}
+
+export interface FinancialRecord {
+  outcome: CurrencyAmounts;
+  income: CurrencyAmounts;
+}
+
 // The database returns a number for amount, but we later format it to a string with the formatCurrency function
 export type LatestInvoiceRaw = Omit<LatestInvoice, 'amount'> & {
   amount: number;

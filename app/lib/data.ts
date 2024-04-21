@@ -5,37 +5,16 @@ import {
   InvoiceForm,
   InvoicesTable,
   LatestInvoiceRaw,
+  LatestIncome,
+  LatestOutcome,
   User,
-  Revenue,
+  FinancialRecord,
 } from './definitions';
-import { formatCurrency } from './utils';
+import { formatCurrency, formatCurrencyUSD, formatCurrencyARS } from './utils';
 import { unstable_noStore as noStore } from 'next/cache';
 
-export async function fetchRevenue() {
-  noStore()
-  // Add noStore() here to prevent the response from being cached.
-  // This is equivalent to in fetch(..., {cache: 'no-store'}).
-
-  try {
-    // Artificially delay a response for demo purposes.
-    // Don't do this in production :)
-
-    console.log('Fetching revenue data...');
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-
-    const data = await sql<Revenue>`SELECT * FROM revenue`;
-
-    console.log('Data fetch completed after 3 seconds.');
-
-    return data.rows;
-  } catch (error) {
-    console.error('Database Error:', error);
-    throw new Error('Failed to fetch revenue data.');
-  }
-}
-
 export async function fetchLatestInvoices() {
-  noStore()
+  noStore();
   try {
     const data = await sql<LatestInvoiceRaw>`
       SELECT invoices.amount, customers.name, customers.image_url, customers.email, invoices.id
@@ -55,35 +34,85 @@ export async function fetchLatestInvoices() {
   }
 }
 
-export async function fetchCardData() {
-  noStore()
+// Traemos los últimos Outcomes
+export async function fetchLatestOutcomes() {
   try {
-    // You can probably combine these into a single SQL query
-    // However, we are intentionally splitting them to demonstrate
-    // how to initialize multiple queries in parallel with JS.
-    const invoiceCountPromise = sql`SELECT COUNT(*) FROM invoices`;
-    const customerCountPromise = sql`SELECT COUNT(*) FROM customers`;
-    const invoiceStatusPromise = sql`SELECT
-         SUM(CASE WHEN status = 'paid' THEN amount ELSE 0 END) AS "paid",
-         SUM(CASE WHEN status = 'pending' THEN amount ELSE 0 END) AS "pending"
-         FROM invoices`;
+    const data = await sql<LatestOutcome>`
+      SELECT name, category, usd, date
+      FROM expenses
+      ORDER BY usd DESC
+      LIMIT 5`;
 
-    const data = await Promise.all([
-      invoiceCountPromise,
-      customerCountPromise,
-      invoiceStatusPromise,
-    ]);
+    const latestOutcomes = data.rows.map((outcome) => ({
+      ...outcome,
+      amount: formatCurrency(outcome.usd),
+    }));
 
-    const numberOfInvoices = Number(data[0].rows[0].count ?? '0');
-    const numberOfCustomers = Number(data[1].rows[0].count ?? '0');
-    const totalPaidInvoices = formatCurrency(data[2].rows[0].paid ?? '0');
-    const totalPendingInvoices = formatCurrency(data[2].rows[0].pending ?? '0');
+    return latestOutcomes;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch the latest outcomes.');
+  }
+}
+
+// Traemos los últimos Incomes
+export async function fetchLatestIncomes() {
+  try {
+    const data = await sql<LatestIncome>`
+      SELECT name, category, usd, date
+      FROM incomes
+      ORDER BY date DESC
+      LIMIT 5`;
+
+    const latestIncomes = data.rows.map((income) => ({
+      ...income,
+      amount: formatCurrency(income.usd),
+    }));
+
+    return latestIncomes;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch the latest incomes.');
+  }
+}
+
+// Traemos datos de las tarjetas
+export async function fetchCardData() {
+  try {
+    const outcomesPromise = sql`SELECT SUM(ars) AS ars_total, SUM(usd) AS usd_total FROM expenses`;
+    const incomesPromise = sql`SELECT SUM(ars) AS ars_tota, SUM(usd) AS usd_tota FROM incomes`;
+
+    const data = await Promise.all([outcomesPromise, incomesPromise]);
+
+    // Outcomes ARS / USD
+    const totalOutcomesARS = Number(data[0].rows[0].ars_total ?? '0');
+    const totalOutcomesCurrencyARS = formatCurrencyARS(totalOutcomesARS);
+
+    const totalOutcomesUSD = Number(data[0].rows[0].usd_total ?? '0');
+    const totalOutcomesCurrencyUSD = formatCurrencyARS(totalOutcomesUSD);
+
+    // Incomes ARS / USD
+    const totalIncomesARS = Number(data[1].rows[0].ars_tota ?? '0');
+    const totalIncomesCurrencyARS = formatCurrency(totalIncomesARS);
+
+    const totalIncomesUSD = Number(data[1].rows[0].usd_tota ?? '0');
+    const totalIncomesCurrencyUSD = formatCurrencyUSD(totalIncomesUSD);
+
+    const total: FinancialRecord[]= [
+      {
+        outcome: {
+          ars: totalOutcomesCurrencyARS,
+          usd: totalOutcomesCurrencyUSD,
+        },
+        income: {
+          ars: totalIncomesCurrencyARS,
+          usd: totalIncomesCurrencyUSD,
+        },
+      },
+    ];
 
     return {
-      numberOfCustomers,
-      numberOfInvoices,
-      totalPaidInvoices,
-      totalPendingInvoices,
+      total
     };
   } catch (error) {
     console.error('Database Error:', error);
@@ -91,12 +120,13 @@ export async function fetchCardData() {
   }
 }
 
+
 const ITEMS_PER_PAGE = 6;
 export async function fetchFilteredInvoices(
   query: string,
   currentPage: number,
 ) {
-  noStore()
+  noStore();
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
   try {
@@ -129,7 +159,7 @@ export async function fetchFilteredInvoices(
 }
 
 export async function fetchInvoicesPages(query: string) {
-  noStore()
+  noStore();
   try {
     const count = await sql`SELECT COUNT(*)
     FROM invoices
@@ -151,7 +181,7 @@ export async function fetchInvoicesPages(query: string) {
 }
 
 export async function fetchInvoiceById(id: string) {
-  noStore()
+  noStore();
   try {
     const data = await sql<InvoiceForm>`
       SELECT
@@ -195,7 +225,7 @@ export async function fetchCustomers() {
 }
 
 export async function fetchFilteredCustomers(query: string) {
-  noStore()
+  noStore();
   try {
     const data = await sql<CustomersTableType>`
 		SELECT
