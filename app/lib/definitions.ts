@@ -2,29 +2,6 @@
 // It describes the shape of the data, and what data type each property should accept.
 // For simplicity of teaching, we're manually defining these types.
 // However, these types are generated automatically if you're using an ORM such as Prisma.
-export type User = {
-  id: string;
-  name: string;
-  email: string;
-  password: string;
-};
-
-export type Customer = {
-  id: string;
-  name: string;
-  email: string;
-  image_url: string;
-};
-
-export type Invoice = {
-  id: string;
-  customer_id: string;
-  amount: number;
-  date: string;
-  // In TypeScript, this is called a string union type.
-  // It means that the "status" property can only be one of the two strings: 'pending' or 'paid'.
-  status: 'pending' | 'paid';
-};
 
 export type Revenue = {
   month: string;
@@ -45,6 +22,7 @@ export type LatestOutcome = {
   usd: number;
   ars: number;
   category: string;
+  amount: string;
 }
 
 export type LatestIncome = {
@@ -53,6 +31,7 @@ export type LatestIncome = {
   usd: number;
   ars: number;
   category: string;
+  amount: string;
 }
 
 export interface CurrencyAmounts {
@@ -112,3 +91,24 @@ export type InvoiceForm = {
   amount: number;
   status: 'pending' | 'paid';
 };
+
+export interface LatestOutcomeProps {
+  outcomeData: LatestOutcome[]
+}
+export interface LatestIncomeProps {
+  incomeData: LatestIncome[]
+}
+
+export interface CardWrapperProps {
+  cardData: FinancialRecord[];
+}
+
+export interface CardProps {
+  title: string;
+  value: number | string;
+  value2: number | string;
+  type: 'invoices' | 'customers' | 'pending' | 'collected';
+  currency: 'ARS' | 'USD';
+  currency2: 'ARS' | 'USD';
+  currentCurrency: 'ARS' | 'USD';
+}
