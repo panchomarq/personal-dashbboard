@@ -1,11 +1,8 @@
-import { ArrowPathIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { lusitana } from '@/app/ui/fonts';
-import { fetchLatestOutcomes } from '@/app/lib/data';
+import { LatestOutcomeProps } from '@/app/lib/definitions';
 
-export default async function LatestOutcomes() {
-  const latestOutcome = await fetchLatestOutcomes();
-
+const LatestOutcomes: React.FC<LatestOutcomeProps> = ({outcomeData}) => {
   return (
     <div className="flex w-full flex-col md:col-span-4">
       <h2 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
@@ -14,7 +11,7 @@ export default async function LatestOutcomes() {
       <div className="flex grow flex-col justify-between rounded-xl bg-gray-50 p-4">
         {
           <div className="bg-white px-6">
-            {latestOutcome.map((outcome, i) => {
+            {outcomeData.map((outcome, i) => {
               return (
                 <div
                   key={outcome.name}
@@ -36,7 +33,7 @@ export default async function LatestOutcomes() {
                     </div>
                   </div>
                   <p
-                    className={`${lusitana.className} truncate text-sm font-medium md:text-base`}
+                    className="truncate text-sm font-medium md:text-base"
                   >
                     ${outcome.amount}
                   </p>
@@ -48,4 +45,6 @@ export default async function LatestOutcomes() {
       </div>
     </div>
   );
-}
+};
+
+export default LatestOutcomes;
