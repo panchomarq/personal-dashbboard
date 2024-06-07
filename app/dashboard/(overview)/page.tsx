@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import CardWrapper from '@/app/ui/dashboard/card-wrapper';
 import LatestIncomes from '@/app/ui/dashboard/latest-incomes';
 import LatestOutcomes from '@/app/ui/dashboard/latest-outcomes';
-import { lusitana, montserrat } from '@/app/ui/fonts';
 import { Suspense } from 'react';
 import {
   LatestInvoicesSkeleton,
