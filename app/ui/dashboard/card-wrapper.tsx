@@ -39,7 +39,6 @@ const CardWrapper: React.FC<CardWrapperProps> = ({ cardData }) => {
 
   return (
     <div>
-      <button onClick={toggleCurrency}>Toggle Currency</button>
       <div className='grid grid-cols-2 gap-4'>
       <Card
         title="Outcomes"

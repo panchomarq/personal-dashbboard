@@ -1,46 +1,137 @@
 'use client';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { motion } from 'framer-motion';
 import NavLinks from '@/app/ui/dashboard/nav-links';
-import AcmeLogo from '@/app/ui/acme-logo';
 import { PowerIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
+import Image from 'next/image';
+import OpenSidebar from '@/components/sidebar/OpenSidebar';
+import CloseSidebar from '@/components/sidebar/CloseSidebar';
+import SpaceDashboardIcon from '@/components/sidebar/LogoDashboard';
+import AttachMoneyIcon from '@/components/sidebar/LogoMoney';
+import CurrencyBitcoinIcon from '@/components/sidebar/LogoBitcoin';
 
 export default function SideNav() {
-  const [isOpen, setIsOpen] = useState(true);
+  const currentPath = usePathname();
+  const [isSidebarOpen, setIsOpen] = useState(true);
+  const isActive = (route: string): boolean => currentPath === route;
 
-  const toogleSidebar = () => {
-    setIsOpen(!isOpen);
+  const sidebarVariants = {
+    open: { width: '190px', transition: { duration: 0.1, stiffness: 20 } },
+    closed: { width: '75px', transition: { duration: 0.1, stiffness: 20 } },
   };
-  return (
-    <div className="flex h-full">
-      {isOpen && (
-        <div className="flex h-full flex-col px-3 py-4 md:px-2">
-          <button
-            onClick={toogleSidebar}
-            className="m-4 rounded-md bg-gray-200 p-2"
-          >
-            {isOpen ? 'Hide' : 'Show'}
-          </button>
-          <Link
-            className="mb-2 flex h-20 items-end justify-start rounded-md bg-black p-4 md:h-40"
-            href="/"
-          >
-            <div className="w-32 text-white md:w-40">
-              <AcmeLogo />
-            </div>
-          </Link>
-          <div className="flex grow flex-row justify-between space-x-2 md:flex-col md:space-x-0 md:space-y-2">
-            <NavLinks />
-            <div className="hidden h-auto w-full grow rounded-md bg-gray-50 md:block"></div>
-            <form>
-              <button className="flex h-[48px] w-full grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3">
-                <PowerIcon className="w-6" />
-                <div className="hidden md:block">Sign Out</div>
-              </button>
-            </form>
-          </div>
+
+  const toggleSidebar = () => {
+    setIsOpen(!isSidebarOpen);
+  };
+
+  const itemVariants = {
+    open: {
+      opacity: 1,
+      height: 'auto',
+      width: '100%',
+      transition: { duration: 0.15, ease: 'easeInOut' },
+    },
+    closed: {
+      opacity: 0,
+      height: '0px',
+      width: '0px',
+      transition: { duration: 0.15, ease: 'easeInOut' },
+    },
+  };
+
+  const SidebarItem: React.FC<{
+    href: string;
+    icon: React.JSX.Element;
+    title: string;
+    beta?: boolean;
+    newTab?: boolean;
+    enable?: boolean;
+  }> = ({ href, icon, title, beta = false, newTab, enable = true }) => {
+    if (!enable) return <></>;
+    const active = isActive(href);
+    return (
+      <Link
+        className={`"mb-2 md:h-40" bg-grey-100 flex h-20 items-center justify-between rounded-md p-2 ${
+          active
+            ? 'text-main-red-400 bg-main-red-50'
+            : 'hover:text-main-red-400 text-gray-950'
+        } ${isSidebarOpen ? 'flex-row' : 'flex-col'}`}
+        href={href}
+        target={newTab ? '_blank' : '_self'}
+        title={`${title}`}
+      >
+        <div className="flex h-10 w-10 items-center rounded-md">
+          {icon}
         </div>
-      )}
-    </div>
+        <motion.div
+          className="font medium line-clamp-1 w-full whitespace-nowrap text-xs px-2"
+          variants={itemVariants}
+          animate={isSidebarOpen ? 'open' : 'closed'}
+          initial={'closed'}
+        >
+          {title}
+        </motion.div>
+      </Link>
+    );
+  };
+
+  return (
+    <>
+      <motion.aside
+        variants={sidebarVariants}
+        animate={isSidebarOpen ? 'open' : 'closed'}
+        className="flex h-full flex-col gap-y-6 border-r-[1px] border-gray-200 px-6 py-5"
+      >
+        <button
+          className="flex items-center justify-between py-1"
+          onClick={toggleSidebar}
+        >
+          <Image
+            src="/trendline_logo.png"
+            alt="logo"
+            width={100}
+            height={100}
+            quality={100}
+          />
+          <div
+            className={
+              'aspect-square w-6 flex-none text-gray-200'
+            }
+          >
+            {isSidebarOpen ? (
+              <CloseSidebar width={'100%'} height={'100%'} />
+            ) : (
+              <OpenSidebar width={'100%'} height={'100%'} />
+            )}
+          </div>
+        </button>
+        <motion.nav
+          initial={false}
+          className={`flex h-full w-full flex-col justify-between gap-y-6 ${
+            isSidebarOpen ? 'w-30' : 'w-20'
+          }`}
+        >
+          <motion.div className="flex flex-col justify-between align-baseline">
+            <SidebarItem
+              href={'/dashboard'}
+              title={'Dashboard'}
+              icon={<SpaceDashboardIcon width={'100'} height={'100'} />}
+            />
+            <SidebarItem
+              href={'/dashboard/incomes'}
+              title={'Outcomes'}
+              icon={<AttachMoneyIcon width={'100'} height={'100'} />}
+            />
+            <SidebarItem
+              href={'/dashboard/incomes'}
+              title={'Incomes'}
+              icon={<CurrencyBitcoinIcon width={'100'} height={'100'} />}
+            />
+          </motion.div>
+        </motion.nav>
+      </motion.aside>
+    </>
   );
 }
