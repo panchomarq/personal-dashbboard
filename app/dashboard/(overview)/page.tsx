@@ -1,25 +1,13 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
 import { LatestInvoicesSkeleton, CardsSkeleton } from '@/app/ui/skeletons';
 import { fetchCardData, fetchLatestIncomes, fetchLatestOutcomes } from '@/app/lib/data';
 import { FinancialRecord, LatestIncome, LatestOutcome } from '@/app/lib/definitions';
-
-// Dynamically import components with suspense enabled
-const CardWrapper = dynamic(() => import('@/app/ui/dashboard/card-wrapper'), {
-  suspense: true,
-});
-
-const LatestIncomes = dynamic(() => import('@/app/ui/dashboard/latest-incomes'), {
-  suspense: true,
-});
-
-const LatestOutcomes = dynamic(() => import('@/app/ui/dashboard/latest-outcomes'), {
-  suspense: true,
-});
-
+import CardWrapper from '@/app/ui/dashboard/card-wrapper';
+import LatestIncomes from '@/app/ui/dashboard/latest-incomes';
+import LatestOutcomes from '@/app/ui/dashboard/latest-outcomes';
 export default function Page() {
   const [cardData, setCardData] = useState<FinancialRecord[] | null>(null);
   const [latestIncomeData, setLatestIncomeData] = useState<LatestIncome[] | null>(null);
