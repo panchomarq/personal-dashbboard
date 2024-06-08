@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
-import NavLinks from '@/app/ui/dashboard/nav-links';
+import NavLinks from '@/components/dashboard/nav-links';
 import { PowerIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import Image from 'next/image';

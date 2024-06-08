@@ -1,6 +1,6 @@
 'use client';
 
-import { lusitana } from '@/app/ui/fonts';
+import { lusitana } from '@/app/ui-OLD/fonts';
 import { Button } from '@/components/ui/button';
 
 export default function Page() {

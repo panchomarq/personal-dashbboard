@@ -2,12 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 import { Suspense } from 'react';
-import { LatestInvoicesSkeleton, CardsSkeleton } from '@/app/ui/skeletons';
+import { LatestInvoicesSkeleton, CardsSkeleton } from '@/app/ui-OLD/skeletons';
 import { fetchCardData, fetchLatestIncomes, fetchLatestOutcomes } from '@/app/lib/data';
 import { FinancialRecord, LatestIncome, LatestOutcome } from '@/app/lib/definitions';
-import CardWrapper from '@/app/ui/dashboard/card-wrapper';
-import LatestIncomes from '@/app/ui/dashboard/latest-incomes';
-import LatestOutcomes from '@/app/ui/dashboard/latest-outcomes';
+import CardWrapper from '@/components/dashboard/card-wrapper';
+import LatestIncomes from '@/components/dashboard/latest-incomes';
+import LatestOutcomes from '@/components/dashboard/latest-outcomes';
 export default function Page() {
   const [cardData, setCardData] = useState<FinancialRecord[] | null>(null);
   const [latestIncomeData, setLatestIncomeData] = useState<LatestIncome[] | null>(null);
