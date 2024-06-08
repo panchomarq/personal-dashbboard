@@ -1,40 +1,25 @@
 export default function CloseSidebar({
-    width,
-    height,
-  }: {
-    width: string;
-    height: string;
-  }) {
-    return (
-      <svg
-        width={width}
-        height={height}
-        viewBox="0 0 24 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3Z"
-          stroke="#9CA3AF"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-        <path
-          d="M15 3V21"
-          stroke="#9CA3AF"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-        <path
-          d="M10 15L7 12L10 9"
-          stroke="#9CA3AF"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-      </svg>
-    );
-  }
-  
+  width,
+  height,
+}: {
+  width: string;
+  height: string;
+}) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      enable-background="new 0 0 24 24"
+      height={height}
+      viewBox="0 0 24 24"
+      width={width}
+      fill="#e8eaed"
+    >
+      <g>
+        <rect fill="none" height="24" width="24" />
+        <g>
+          <path d="M2,4v16h20V4H2z M20,8.67h-2.5V6H20V8.67z M17.5,10.67H20v2.67h-2.5V10.67z M4,6h11.5v12H4V6z M17.5,18v-2.67H20V18H17.5z" />
+        </g>
+      </g>
+    </svg>
+  );
+}

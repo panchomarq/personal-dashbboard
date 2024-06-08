@@ -76,7 +76,7 @@ export const Card: React.FC<CardProps> = ({
   const Coin = currentCurrency === 'ARS' ? currencyMap[currency] : currencyMap[currency2];
 
   return (
-    <div className="rounded-xl bg-red-500 p-2 shadow-sm">
+    <div className="rounded-xl bg-teal-100 p-2 shadow-sm">
       <div className="flex p-4">
         {Icon ? <Icon className="h-5 w-5 text-gray-700" /> : null}
         <h3 className="ml-2 text-sm font-medium">{title}</h3>
@@ -85,7 +85,7 @@ export const Card: React.FC<CardProps> = ({
         <div
           className={`${montserrat.className} truncate rounded-xl bg-white px-4 py-8 text-center text-2xl`}
         >
-          <h2>{Coin ? currentCurrency : null}</h2>
+          {/* <h2>{Coin ? currentCurrency : null}</h2> */}
           {Coin ? (currentCurrency === 'ARS' ? value : value2) : null}
         </div>
       </div>
