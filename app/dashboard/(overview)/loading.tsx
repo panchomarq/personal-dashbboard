@@ -1,4 +1,4 @@
-import DashboardSkeleton from '@/app/ui-OLD/skeletons';
+import DashboardSkeleton from '@/app/ui/skeletons';
 
 
 export default function Loading() {

@@ -2,15 +2,15 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
-import NavLinks from '@/components/dashboard/nav-links';
+import NavLinks from '@/app/components/dashboard/nav-links';
 import { PowerIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import Image from 'next/image';
-import OpenSidebar from '@/components/sidebar/OpenSidebar';
-import CloseSidebar from '@/components/sidebar/CloseSidebar';
-import SpaceDashboardIcon from '@/components/sidebar/LogoDashboard';
-import AttachMoneyIcon from '@/components/sidebar/LogoMoney';
-import CurrencyBitcoinIcon from '@/components/sidebar/LogoBitcoin';
+import OpenSidebar from '@/app/components/sidebar/OpenSidebar';
+import CloseSidebar from '@/app/components/sidebar/CloseSidebar';
+import SpaceDashboardIcon from '@/app/components/sidebar/LogoDashboard';
+import AttachMoneyIcon from '@/app/components/sidebar/LogoMoney';
+import CurrencyBitcoinIcon from '@/app/components/sidebar/LogoBitcoin';
 
 export default function SideNav() {
   const currentPath = usePathname();

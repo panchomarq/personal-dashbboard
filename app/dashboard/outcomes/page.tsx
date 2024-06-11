@@ -1,6 +1,6 @@
 "use client"
 
-import { lusitana } from '@/app/ui-OLD/fonts';
+import { lusitana } from '@/app/ui/fonts';
 
 export default function page() {
   return (
