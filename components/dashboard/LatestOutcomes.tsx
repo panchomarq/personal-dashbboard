@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { lusitana } from '@/lib/fonts';
-import { LatestOutcomeProps } from '@/app/lib/definitions';
+import { LatestOutcomeProps } from '@/lib/types/definitions';
 
 const LatestOutcomes: React.FC<LatestOutcomeProps> = ({outcomeData}) => {
   return (

@@ -7,12 +7,12 @@ import {
   fetchCardData,
   fetchLatestIncomes,
   fetchLatestOutcomes,
-} from '@/app/lib/data';
+} from '@/lib/data';
 import {
   FinancialRecord,
   LatestIncome,
   LatestOutcome,
-} from '@/app/lib/definitions';
+} from '@/lib/types/definitions';
 import CardWrapper from '@/components/dashboard/CardWrapper';
 import LatestIncomes from '@/components/dashboard/LatestIncomes';
 import LatestOutcomes from '@/components/dashboard/LatestOutcomes';

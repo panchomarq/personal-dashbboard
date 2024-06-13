@@ -5,9 +5,8 @@ import {
   LatestIncome,
   LatestOutcome,
   FinancialRecord,
-} from './definitions';
-import { formatCurrency, formatCurrencyUSD, formatCurrencyARS } from './utils';
-import { unstable_cache as cache } from 'next/cache';
+} from './types/definitions';
+import { formatCurrency, formatCurrencyUSD, formatCurrencyARS } from '@/lib/utils';
 
 // Traemos los últimos Outcomes
 export async function fetchLatestOutcomes() {
