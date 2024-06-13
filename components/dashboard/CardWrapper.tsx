@@ -5,7 +5,7 @@ import {
   UserGroupIcon,
   InboxIcon,
 } from '@heroicons/react/24/outline';
-import { montserrat } from '@/app/ui/fonts';
+import { montserrat } from '@/lib/fonts';
 import { CardWrapperProps, CardProps } from '@/app/lib/definitions';
 import { motion } from 'framer-motion';
 

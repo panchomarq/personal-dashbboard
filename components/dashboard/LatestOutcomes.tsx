@@ -1,20 +1,20 @@
 import clsx from 'clsx';
-import { lusitana } from '@/app/ui/fonts';
-import { LatestIncomeProps } from '@/app/lib/definitions';
+import { lusitana } from '@/lib/fonts';
+import { LatestOutcomeProps } from '@/app/lib/definitions';
 
-const LatestIncomes: React.FC<LatestIncomeProps> = ({incomeData}) => {
+const LatestOutcomes: React.FC<LatestOutcomeProps> = ({outcomeData}) => {
   return (
     <div className="flex w-full flex-col md:col-span-4">
-      <h2 className="mb-4 text-xl md:text-2xl">
-        Latest Incomes
+      <h2 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
+        Latest Outcomes
       </h2>
       <div className="flex grow flex-col justify-between rounded-xl bg-gray-50 p-4">
         {
           <div className="bg-white px-6">
-            {incomeData.map((income, i) => {
+            {outcomeData.map((outcome, i) => {
               return (
                 <div
-                  key={income.name}
+                  key={outcome.name}
                   className={clsx(
                     'flex flex-row items-center justify-between py-4',
                     {
@@ -25,17 +25,17 @@ const LatestIncomes: React.FC<LatestIncomeProps> = ({incomeData}) => {
                   <div className="flex items-center">
                     <div className="min-w-0">
                       <p className="truncate text-sm font-semibold md:text-base">
-                        {income.name}
+                        {outcome.name}
                       </p>
                       <p className="hidden text-sm text-gray-500 sm:block">
-                        {income.category}
+                        {outcome.category}
                       </p>
                     </div>
                   </div>
                   <p
-                    className="text-sm font-medium md:text-base"
+                    className="truncate text-sm font-medium md:text-base"
                   >
-                    ${income.amount}
+                    ${outcome.amount}
                   </p>
                 </div>
               );
@@ -45,6 +45,6 @@ const LatestIncomes: React.FC<LatestIncomeProps> = ({incomeData}) => {
       </div>
     </div>
   );
-}
+};
 
-export default LatestIncomes;
+export default LatestOutcomes;

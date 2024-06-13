@@ -1,5 +1,4 @@
-import '@/app/ui/global.css';
-import { montserrat } from '@/app/ui/fonts';
+import { montserrat } from '@/lib/fonts';
 
 
 export default function RootLayout({
@@ -9,7 +8,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={montserrat.className}>
-      <body className={montserrat.className}>{children}</body>
+      <body>{children}</body>
     </html>
   );
 }
