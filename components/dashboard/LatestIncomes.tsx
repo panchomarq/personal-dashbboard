@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { LatestIncomeProps } from '@/app/lib/definitions';
+import { LatestIncomeProps } from '@/lib/types/definitions';
 
 const LatestIncomes: React.FC<LatestIncomeProps> = ({incomeData}) => {
   return (
