@@ -1,12 +1,11 @@
 'use client';
 
-import { lusitana } from '@/app/ui/fonts';
-import { Button } from '@/app/components/ui/button';
+import { Button } from '@/components/ui/Button'
 
 export default function Page() {
   return (
     <main>
-      <h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}></h1>
+      <h1 className="mb-4 text-xl md:text-2xl"></h1>
       nada
       <div><Button variant="link">asasdasd</Button></div>
       <div>

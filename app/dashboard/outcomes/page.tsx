@@ -1,11 +1,9 @@
 "use client"
 
-import { lusitana } from '@/app/ui/fonts';
-
 export default function page() {
   return (
     <main>
-      <h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}></h1>
+      <h1 className="mb-4 text-xl md:text-2xl"></h1>
       <div>
       </div>
     </main>
