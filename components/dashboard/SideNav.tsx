@@ -29,13 +29,13 @@ export default function SideNav() {
       opacity: 1,
       height: 'auto',
       width: '100%',
-      transition: { duration: 0.15, ease: 'easeInOut' },
+      transition: { duration: 0.15 },
     },
     closed: {
       opacity: 0,
-      height: '0px',
-      width: '0px',
-      transition: { duration: 0.15, ease: 'easeInOut' },
+      height: 'auto',
+      width: '100%',
+      transition: { duration: 0.15},
     },
   };
 
@@ -49,6 +49,7 @@ export default function SideNav() {
   }> = ({ href, icon, title, beta = false, newTab, enable = true }) => {
     if (!enable) return <></>;
     const active = isActive(href);
+    console.log(active)
     return (
       <Link
         className={`"mb-2 md:h-40" bg-grey-100 flex h-20 items-center justify-between rounded-md p-2 ${
@@ -118,12 +119,12 @@ export default function SideNav() {
               icon={<SpaceDashboardIcon width={'100'} height={'100'} />}
             />
             <SidebarItem
-              href={'/dashboard/incomes'}
+              href={'/outcomes'}
               title={'Outcomes'}
               icon={<AttachMoneyIcon width={'100'} height={'100'} />}
             />
             <SidebarItem
-              href={'/dashboard/incomes'}
+              href={'/incomes'}
               title={'Incomes'}
               icon={<CurrencyBitcoinIcon width={'100'} height={'100'} />}
             />
