@@ -11,7 +11,7 @@ export default function IncomeForm() {
     const data = {
       name: formData.get('name') as string,
       date: formData.get('date') as string,
-      category: formData.get('category') as boo,
+      category: formData.get('category') as string,
       currency: formData.get('currency') as string,
       ars: parseFloat(formData.get('ars') as string),
       tasa: parseFloat(formData.get('tasa') as string),

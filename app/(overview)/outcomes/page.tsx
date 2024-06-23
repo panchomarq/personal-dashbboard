@@ -6,7 +6,7 @@ export default function page() {
     <main>
       <h1 className="mb-4 text-xl md:text-2xl"></h1>
       <div>
-        <IncomeForm clients={undefined} />
+        <IncomeForm />
       </div>
     </main>
   );
