@@ -6,7 +6,10 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-
+export function formatDate(dateString: string) {
+  const [day, month, year] = dateString.split('-');
+  return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+}
 
 export const formatCurrency = (amount: number) => {
   return amount.toLocaleString('es-US', {

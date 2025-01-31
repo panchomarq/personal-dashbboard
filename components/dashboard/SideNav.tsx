@@ -112,7 +112,7 @@ export default function SideNav() {
       >
         <motion.div className="flex flex-col justify-between align-baseline">
           <SidebarItem
-            href={'/dashboard'}
+            href={'/'}
             title={'Dashboard'}
             icon={<SpaceDashboardIcon width={'100'} height={'100'} />}
           />
@@ -139,6 +139,7 @@ export default function SideNav() {
           className={`flex h-[48px] items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 ${
             isSidebarOpen ? 'w-30' : 'w-15'
           }`}
+          type="submit"
         >
           <PowerIcon className="w-6" />
           {isSidebarOpen && (

@@ -103,17 +103,20 @@ export interface LatestOutcomeProps {
 }
 export interface LatestIncomeProps {
   incomeData: LatestIncome[]
+  value: number | string;
+  currency: 'ARS' | 'USD';
+  currentCurrency: 'ARS' | 'USD';
 }
 
 export interface CardWrapperProps {
   cardData: FinancialRecord[];
+  currentCurrency: 'ARS' | 'USD';
 }
 
 export interface CardProps {
   title: string;
   value: number | string;
   value2: number | string;
-  type: 'invoices' | 'customers' | 'pending' | 'collected';
   currency: 'ARS' | 'USD';
   currency2: 'ARS' | 'USD';
   currentCurrency: 'ARS' | 'USD';
