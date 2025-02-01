@@ -160,6 +160,26 @@ async function seedRevenue(client) {
   }
 }
 
+async function seedExpenses() {
+
+  const createTable = await client.sql`
+    CREATE TABLE IF NOT EXISTS expenses (
+      name TEXT NOT NULL,
+      date DATE NOT NULL,
+      category TEXT NOT NULL,
+      currency TEXT NOT NULL,
+      ars DECIMAL(10,2) NOT NULL,
+      tasa INT NOT NULL,
+      usd DECIMAL(10,2) NOT NULL
+    );
+  `;
+  
+  console.log(`Created "expenses" table`);
+
+  
+
+}
+
 async function main() {
   const client = await db.connect();
 
@@ -177,3 +197,4 @@ main().catch((err) => {
     err,
   );
 });
+

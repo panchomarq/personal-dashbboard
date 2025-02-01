@@ -1,7 +1,21 @@
 import clsx from 'clsx';
 import { LatestIncomeProps } from '@/lib/types/definitions';
 
+const Currency = {
+  ARS: 'ARS',
+  USD: 'USD',
+};
+
+const currencyMap = {
+  [Currency.ARS]: 'ARS',
+  [Currency.USD]: 'USD',
+};
+
 const LatestIncomes: React.FC<LatestIncomeProps> = ({incomeData}) => {
+
+  /*const Coin =
+  currentCurrency === 'ARS' ? currencyMap[incomeData] : currencyMap[currency2];*/
+
   return (
     <div className="flex w-full flex-col md:col-span-4">
       <h2 className="mb-4 text-xl md:text-2xl">
@@ -34,7 +48,7 @@ const LatestIncomes: React.FC<LatestIncomeProps> = ({incomeData}) => {
                   <p
                     className="text-sm font-medium md:text-base"
                   >
-                    ${income.amount}
+                   {/* {Coin ? currentCurrency : null}{currentCurrency}*/}
                   </p>
                 </div>
               );
