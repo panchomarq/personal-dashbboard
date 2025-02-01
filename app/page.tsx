@@ -10,12 +10,14 @@ import { FinancialRecord } from '@/lib/types/definitions';
 import CardWrapper from '@/components/dashboard/CardWrapper';
 import { motion } from 'framer-motion';
 import MyDatePickers  from '@/components/ui/MyDatePickers';
+import { startOfMonth, endOfMonth } from 'date-fns';
 
 export default function Page() {
   const [cardData, setCardData] = useState<FinancialRecord[]>();
   const [currentCurrency, setCurrentCurrency] = useState<'ARS' | 'USD'>('ARS');
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [endDate, setEndDate] = useState<Date | null>(null);
+  const [selectedDates, setSelectedDates] = useState<[Date | null, Date | null]>([null, null]);
 
   const toggleCurrency = () => {
     setCurrentCurrency((prevCurrency) =>
@@ -44,17 +46,25 @@ export default function Page() {
   }, [startDate, endDate]);
 
   const handleDateChange = (dates: [Date | null, Date | null]) => {
-    const [start, end] = dates;
-    setStartDate(start);
-    setEndDate(end);
+    setSelectedDates(dates);
+    setStartDate(dates[0]);
+    setEndDate(dates[1]);
   };
+
+  const currentMonthStart = startOfMonth(new Date());
+  const currentMonthEnd = endOfMonth(new Date());
 
   return (
     <main>
       <h1 className="mb-4 text-xl md:text-2xl">Dashboard</h1>
       <div className="mb-4 flex justify-between">
         <div className="mb-4 flex">
-          <MyDatePickers onChange={handleDateChange} />
+          <MyDatePickers
+            onChange={handleDateChange}
+            minDate={currentMonthStart}
+            maxDate={currentMonthEnd}
+            style={{ margin: '20px 0', padding: '10px', border: '1px solid #ccc', borderRadius: '4px' }}
+          />
         </div>
         <div
           className={`flex h-6 w-12 cursor-pointer rounded-full border border-teal-400 ${
