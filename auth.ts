@@ -18,29 +18,55 @@ async function getUser(email: string): Promise<User | undefined> {
  
 export const { auth, signIn, signOut } = NextAuth({
   ...authConfig,
+  session: {
+    // Use JWT for sessions
+    strategy: 'jwt',
+    maxAge: 30 * 24 * 60 * 60, // 30 days
+  },
   providers: [
     Credentials({
       async authorize(credentials) {
+        // Validate credential format
         const parsedCredentials = z
-          .object({ email: z.string().email(), password: z.string().min(6) })
+          .object({ 
+            email: z.string().email('Invalid email format'), 
+            password: z.string().min(6, 'Password must be at least 6 characters') 
+          })
           .safeParse(credentials);
-        console.log(parsedCredentials)
         
         if (parsedCredentials.success) {
           const { email, password } = parsedCredentials.data;
           const user = await getUser(email);
-          if (!user) return null;
+          
+          if (!user) {
+            console.log("User not found");
+            return null;
+          }
+          
           const passwordsMatch = await bcrypt.compare(password, user.password);
 
           if (passwordsMatch) {
-            return user;
+            // Only return necessary user data, do not expose sensitive info
+            return {
+              id: user.id,
+              name: user.name,
+              email: user.email,
+            };
           }
         }
 
-        console.log("invalid credentials")
-        return null
- 
+        console.log("Invalid credentials");
+        return null;
       },
     }),
   ],
+  callbacks: {
+    // Add JWT callback to store user ID
+    jwt({ token, user }) {
+      if (user) {
+        token.sub = user.id;
+      }
+      return token;
+    }
+  }
 });
