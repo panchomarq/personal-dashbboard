@@ -2,6 +2,46 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --color-cream: #F6F1DE;
+  --color-slate: #3E3F5B;
+  --color-sage: #8AB2A6;
+  --color-mint: #ACD3A8;
+  --color-navy: #205781;
+}
+
+@layer base {
+  body {
+    @apply bg-white text-slate;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-slate font-bold;
+  }
+  
+  a {
+    @apply text-sage hover:text-mint transition-colors;
+  }
+  
+  button {
+    @apply bg-sage text-white hover:bg-mint transition-colors;
+  }
+}
+
+/* Card styles */
+.dashboard-card {
+  @apply bg-white border border-navy-900 rounded-lg p-6 shadow-sm;
+}
+
+/* Button styles */
+.btn-primary {
+  @apply bg-navy-900 text-white hover:bg-navy-800 transition-colors px-4 py-2 rounded-md flex items-center gap-2;
+}
+
+.btn-secondary {
+  @apply bg-white border border-navy-900 text-navy-900 hover:bg-gray-50 transition-colors px-4 py-2 rounded-md flex items-center gap-2;
+}
+
 input[type='number'] {
   -moz-appearance: textfield;
   appearance: textfield;
